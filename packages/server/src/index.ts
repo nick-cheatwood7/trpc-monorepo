@@ -5,7 +5,7 @@ import * as trpcExpress from "@trpc/server/adapters/express";
 const appRouter = trpc.router().query("hello", {
     resolve() {
         return "hello world!";
-    }
+    },
 });
 
 const app = express();
@@ -15,7 +15,7 @@ app.use(
     "/trpc",
     trpcExpress.createExpressMiddleware({
         router: appRouter,
-        createContext: () => null
+        createContext: () => null,
     })
 );
 
