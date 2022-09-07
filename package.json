@@ -12,7 +12,8 @@
   "scripts": {
     "start": "concurrently \"wsrun --parallel start\"",
     "lint": "eslint './**/*.{js,ts,tsx}' --quiet --fix",
-    "prettier": "prettier --write \"./**/*.{js,ts,tsx}\""
+    "prettier": "prettier --write \"./**/*.{js,ts,tsx}\"",
+    "build": "wsrun --parallel build"
   },
   "workspaces": [
     "packages/*"
