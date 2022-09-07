@@ -1,10 +1,34 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useState } from "react";
 import styles from "../styles/Home.module.css";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
     const { data, isLoading } = trpc.useQuery(["posts.all"]);
+    const utils = trpc.useContext();
+
+    const createPost = trpc.useMutation("posts.create");
+    const onCreate = () => {
+        createPost.mutate(
+            {
+                title,
+                content,
+            },
+            {
+                onSuccess: () => {
+                    // invalidate query
+                    utils.invalidateQueries("posts.all");
+                },
+                onError: (error) => {
+                    console.dir(error);
+                },
+            }
+        );
+    };
+
     return (
         <div className={styles.container}>
             <Head>
@@ -20,7 +44,24 @@ const Home: NextPage = () => {
                 {isLoading ? (
                     <div>Loading...</div>
                 ) : (
-                    <div>{JSON.stringify(data, null, 2)}</div>
+                    <div>
+                        <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                        >
+                            <input
+                                placeholder="Title"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                            />
+                            <textarea
+                                placeholder="content"
+                                value={content}
+                                onChange={(e) => setContent(e.target.value)}
+                            />
+                            <button onClick={onCreate}>Create Post</button>
+                        </div>
+                        <div>{JSON.stringify(data, null, 2)}</div>
+                    </div>
                 )}
             </main>
         </div>

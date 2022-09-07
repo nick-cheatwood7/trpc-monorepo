@@ -23,7 +23,9 @@ export const postRouter = createRouter()
         }),
         async resolve({ ctx, input }) {
             try {
-                return await ctx.prisma.post.create({ data: { ...input } });
+                return await ctx.prisma.post.create({
+                    data: { ...input },
+                });
             } catch (error) {
                 throw new TRPCError({
                     code: "INTERNAL_SERVER_ERROR",
