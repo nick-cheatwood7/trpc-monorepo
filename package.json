@@ -2,16 +2,33 @@
   "name": "packages",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": ">= 14.0.0",
+    "yarn": ">= 1.22.0",
+    "npm": "please-use-yarn"
+  },
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "concurrently \"wsrun --parallel start\""
+    "start": "concurrently \"wsrun --parallel dev\"",
+    "lint": "eslint './**/*.{js,ts,tsx}' --quiet --fix",
+    "prettier": "prettier --write \"./**/*.{js,ts,tsx}\"",
+    "build": "echo 'building...'"
   },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
     "concurrently": "latest",
-    "wsrun": "latest"
+    "wsrun": "latest",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1"
   }
 }

@@ -1,24 +1,12 @@
-import express from "express";
-import * as trpc from "@trpc/server";
-import * as trpcExpress from "@trpc/server/adapters/express";
+import { createServer } from "./src/server";
+export { AppRouter } from "./src/api/router";
 
-const appRouter = trpc.router().query("hello", {
-    resolve() {
-        return "hello world!";
-    }
-});
+async function main() {
+    const { app } = createServer();
+    const PORT = 4000;
+    app.listen(PORT, () => {
+        console.info(`✨ tRPC Server listening on http://localhost:${PORT}`);
+    });
+}
 
-const app = express();
-const port = 4000;
-
-app.use(
-    "/trpc",
-    trpcExpress.createExpressMiddleware({
-        router: appRouter,
-        createContext: () => null
-    })
-);
-
-app.get("/", (_req, res) => {
-    res.send("Hello from api-server");
-});
+main();
