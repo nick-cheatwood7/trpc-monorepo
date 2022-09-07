@@ -10,7 +10,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "concurrently \"wsrun --parallel start\"",
+    "start": "concurrently \"wsrun --parallel dev\"",
     "lint": "eslint './**/*.{js,ts,tsx}' --quiet --fix",
     "prettier": "prettier --write \"./**/*.{js,ts,tsx}\"",
     "build": "echo 'building...'"
