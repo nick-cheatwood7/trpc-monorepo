@@ -21,6 +21,8 @@ const Home: NextPage = () => {
                 onSuccess: () => {
                     // invalidate query
                     utils.invalidateQueries("posts.all");
+                    setTitle("");
+                    setContent("");
                 },
                 onError: (error) => {
                     console.dir(error);
